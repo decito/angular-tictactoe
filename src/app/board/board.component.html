@@ -1,15 +1,19 @@
-<h1>Current player: {{ player }}</h1>
+<section>
+  <button nbButton outline status="danger" (click)="newGame()">
+    Start new game
+  </button>
 
-<button nbButton outline status="danger" (click)="newGame()">
-  Start new game
-</button>
+  <h4 *ngIf="!winner && !withdraw">Current player: {{ player }}</h4>
 
-<h2 *ngIf="winner">Player {{ winner }} won the game!</h2>
+  <h4 *ngIf="winner">Player {{ winner }} won the game!</h4>
 
-<main>
-  <app-square
-    *ngFor="let square of squares; let i = index"
-    [value]="square"
-    (click)="makeMove(i)"
-  ></app-square>
-</main>
+  <h4 *ngIf="withdraw">Withdraw</h4>
+
+  <main>
+    <app-square
+      *ngFor="let square of squares; let i = index"
+      [value]="square"
+      (click)="makeMove(i)"
+    ></app-square>
+  </main>
+</section>
