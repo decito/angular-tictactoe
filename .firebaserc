@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "d-angular-tictactoe"
+  },
+  "targets": {
+    "d-angular-tictactoe": {
+      "hosting": {
+        "angular-tictactoe": [
+          "decito-tictactoe"
+        ]
+      }
+    }
+  }
+}
