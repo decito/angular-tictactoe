@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 interface Squares {
-  values: 'X' | 'O';
+  values: 'X' | 'O' | null;
 }
 
 @Component({
@@ -13,6 +13,7 @@ export class BoardComponent {
   squares: Squares['values'][];
   xIsNext: boolean;
   winner: string | null;
+  withdraw: boolean;
 
   ngOnInit() {
     this.newGame();
@@ -21,6 +22,7 @@ export class BoardComponent {
   newGame() {
     this.squares = Array(9).fill(null);
     this.winner = null;
+    this.withdraw = false;
     this.xIsNext = true;
   }
 
@@ -29,6 +31,10 @@ export class BoardComponent {
   }
 
   makeMove(index: number) {
+    if (this.winner || this.withdraw) {
+      return
+    }
+
     if (!this.squares[index]) {
       this.squares.splice(index, 1, this.player);
       this.xIsNext = !this.xIsNext;
@@ -59,6 +65,10 @@ export class BoardComponent {
       ) {
         return this.squares[a];
       }
+    }
+
+    if (!this.squares.includes(null)) {
+      this.withdraw = true;
     }
 
     return null;
