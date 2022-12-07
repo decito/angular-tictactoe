@@ -1,42 +1,40 @@
-import { Component } from '@angular/core'
+import { Component } from '@angular/core';
 
 interface Squares {
-  values: 'X' | 'O'
+  values: 'X' | 'O';
 }
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
 })
-
 export class BoardComponent {
-
-  squares: Squares["values"][]
-  xIsNext: boolean
-  winner: string | null
+  squares: Squares['values'][];
+  xIsNext: boolean;
+  winner: string | null;
 
   ngOnInit() {
-    this.newGame()
+    this.newGame();
   }
 
   newGame() {
-    this.squares = Array(9).fill(null)
-    this.winner = null
-    this.xIsNext = true
+    this.squares = Array(9).fill(null);
+    this.winner = null;
+    this.xIsNext = true;
   }
 
   get player() {
-    return this.xIsNext ? 'X' : 'O'
+    return this.xIsNext ? 'X' : 'O';
   }
 
   makeMove(index: number) {
     if (!this.squares[index]) {
-      this.squares.splice(index, 1, this.player)
-      this.xIsNext = !this.xIsNext
+      this.squares.splice(index, 1, this.player);
+      this.xIsNext = !this.xIsNext;
     }
 
-    this.winner = this.calculateWinner()
+    this.winner = this.calculateWinner();
   }
 
   calculateWinner() {
@@ -49,20 +47,20 @@ export class BoardComponent {
       [2, 5, 8],
       [0, 4, 8],
       [2, 4, 6],
-    ]
+    ];
 
     for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i]
+      const [a, b, c] = lines[i];
 
       if (
         this.squares[a] &&
         this.squares[a] === this.squares[b] &&
         this.squares[a] === this.squares[c]
       ) {
-        return this.squares[a]
+        return this.squares[a];
       }
     }
 
-    return null
+    return null;
   }
 }
